@@ -84,7 +84,7 @@ window.SUPABASE_CONFIG = {
       {icon:'🎀',name:'Seturi pentru moț',subs:['Seturi pentru fetițe','Seturi pentru băieți'],target:'motGrid'},
       {icon:'👕',name:'Tricouri personalizate',subs:['Tricouri damă','Tricouri bărbați','Tricouri copii','Body-uri','Seturi aniversare Tutu'],target:'shirtsSection'},
       {icon:'🎖️',name:'Badge-uri',subs:['Badge-uri personalizate'],target:null},
-      {icon:'🎂',name:'Cake Toppers',subs:['Toppere 3D','Toppere Shaker','Nume + cifră'],target:null},
+      {icon:'🎂',name:'Cake Toppers',subs:['Toppere 3D','Toppere Shaker','Nume + cifră'],target:'cake-toppers-section'},
       {icon:'💍',name:'Nuntă',subs:['Invitații','Plicuri pentru dar','Set gătit mireasă','Set gătit mire','Cutie verighete','Mărturii','Pahare personalizate','Cutii dar'],target:null},
       {icon:'👶',name:'Botez',subs:['Trusou botez','Lumânare botez','Mărturii','Invitații','Plicuri pentru dar','Pahare personalizate','Cutii dar'],target:null}
     ];
@@ -94,4 +94,10 @@ window.SUPABASE_CONFIG = {
   }
 
   if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',addCategoryInterface); else addCategoryInterface();
+
+  // Load the public Cake Toppers module without exposing admin controls.
+  const topperScript=document.createElement('script');
+  topperScript.src='cake-toppers.js';
+  topperScript.defer=true;
+  document.head.appendChild(topperScript);
 })();
