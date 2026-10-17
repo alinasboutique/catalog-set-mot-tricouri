@@ -1,6 +1,6 @@
 /* Cake Toppers — Alina's Handmade Boutique
    Public catalog UI. Personalization: Nume + Cifră.
-   Add real topper photos/products later by filling TOPPER_PRODUCTS.
+   Header redesign: elegant website-style navigation, no personal photo.
 */
 (function () {
   const TOPPER_PRODUCTS = [
@@ -11,10 +11,57 @@
   ];
 
   function esc(value) {
-    return String(value ?? '').replace(/[&<>'"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','"':'&quot;'}[c]));
+    return String(value ?? '').replace(/[&<>'\"]/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;',"'":'&#39;','\"':'&quot;'}[c]));
+  }
+
+  function renderWebsiteHeader() {
+    if (document.getElementById('alinaWebsiteHeader')) return;
+    const oldHeader = document.querySelector('header');
+    if (!oldHeader) return;
+
+    oldHeader.innerHTML = `
+      <div id="alinaWebsiteHeader" class="alina-site-header">
+        <a class="alina-brand" href="#top">
+          <span class="alina-brand-name">Alina's Handmade Boutique</span>
+          <span class="alina-brand-sub">HANDMADE • PERSONALIZAT • CREAT CU DRAG</span>
+        </a>
+        <nav class="alina-nav" aria-label="Navigare principală">
+          <a href="#top">Acasă</a>
+          <a href="#catalogCategories">Catalog</a>
+          <a href="#catalogCategories">Modele</a>
+          <a href="#catalogCategories">Personalizare</a>
+          <button type="button" aria-label="Căutare">⌕</button>
+          <button type="button" aria-label="Favorite">♡</button>
+          <button type="button" aria-label="Coș">🛒<span class="alina-cart-count">0</span></button>
+        </nav>
+      </div>
+    `;
+
+    const style = document.createElement('style');
+    style.id = 'alinaHeaderStyle';
+    style.textContent = `
+      header{padding:0!important;background:#fffdf9!important;border-bottom:1px solid #e4e4d8!important;overflow:visible!important;position:sticky!important;top:0!important;z-index:900!important;box-shadow:0 3px 18px rgba(55,63,40,.05)!important}
+      header:before,header:after{display:none!important}
+      .alina-site-header{max-width:1240px;margin:0 auto;min-height:86px;padding:0 28px;display:flex;align-items:center;justify-content:space-between;gap:35px}
+      .alina-brand{text-decoration:none;display:flex;flex-direction:column;align-items:flex-start;line-height:1;white-space:nowrap}
+      .alina-brand-name{font-family:Georgia,'Times New Roman',serif;font-size:30px;font-weight:500;letter-spacing:.2px;color:#596342}
+      .alina-brand-sub{margin-top:7px;font-family:Arial,Helvetica,sans-serif;font-size:8px;letter-spacing:2.1px;font-weight:700;color:#9a9d8b}
+      .alina-nav{display:flex;align-items:center;gap:27px}
+      .alina-nav a{font-family:Arial,Helvetica,sans-serif;text-decoration:none;color:#5f6654;font-size:14px;font-weight:600;transition:color .2s}
+      .alina-nav a:hover{color:#66704a}
+      .alina-nav button{position:relative;width:44px;height:44px;border:1px solid #d8dccb;background:#fffdf9;color:#5c654d;border-radius:50%;font-size:22px;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:.2s}
+      .alina-nav button:hover{background:#f0f2e8;border-color:#bfc7ac;transform:translateY(-1px)}
+      .alina-nav button[aria-label="Căutare"]{font-size:27px;font-family:Georgia,serif;transform:rotate(-20deg)}
+      .alina-nav button[aria-label="Favorite"]{font-size:25px;font-family:Georgia,serif}
+      .alina-cart-count{position:absolute;right:-3px;top:-4px;min-width:18px;height:18px;padding:0 4px;border-radius:10px;background:#66704a;color:#fff;font:700 10px/18px Arial,sans-serif}
+      @media(max-width:900px){.alina-site-header{min-height:76px;padding:0 18px;gap:18px}.alina-brand-name{font-size:24px}.alina-brand-sub{font-size:7px;letter-spacing:1.5px}.alina-nav{gap:10px}.alina-nav a{font-size:12px}.alina-nav button{width:38px;height:38px;font-size:19px}}
+      @media(max-width:650px){header{position:relative!important}.alina-site-header{min-height:auto;padding:15px 16px;display:block}.alina-brand{align-items:center;text-align:center}.alina-brand-name{font-size:25px}.alina-nav{justify-content:center;flex-wrap:wrap;margin-top:14px;gap:9px}.alina-nav a{font-size:11px}.alina-nav button{width:36px;height:36px}.alina-brand-sub{font-size:6.5px}}
+    `;
+    document.head.appendChild(style);
   }
 
   function render() {
+    renderWebsiteHeader();
     if (document.getElementById('cake-toppers-section')) return;
 
     const style = document.createElement('style');
