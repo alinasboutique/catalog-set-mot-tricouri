@@ -15,13 +15,28 @@ window.SUPABASE_CONFIG = {
       --yellow:#b39a5a;--blue:#71805a;--ink:#283022;--muted:#6d7165;--line:#dfe2d4;--white:#fff;
     }
     body{color:var(--ink)!important;background:linear-gradient(180deg,#fff 0%,#fbfaf5 42%,#f3f5ec 100%)!important}
-    header{background:linear-gradient(135deg,#f3f5eb 0%,#fff 48%,#eef1e5 100%)!important}
-    header:before{background:radial-gradient(circle,#dfe5cf 0%,#edf1e4 45%,transparent 70%)!important}
-    header:after{height:5px!important;background:linear-gradient(90deg,#66704a,#87905f,#b39a5a,#7b8961,#66704a)!important}
-    .eyebrow{background:#fff!important;border-color:#dfe2d4!important;color:#66704a!important;box-shadow:0 6px 18px rgba(73,82,52,.08)!important}
-    h1{color:#2e3527!important} header p{color:#596049!important}
-    .header-note span{border-color:#dfe2d4!important;color:#596049!important;box-shadow:0 5px 14px rgba(73,82,52,.06)!important}
-    .brand-photo{box-shadow:0 20px 45px rgba(73,82,52,.18),0 0 0 3px #dfe5cf!important;background:#eef1e5!important}
+    header{background:#fff!important;border-bottom:1px solid #e5e7dc!important;padding:0 28px!important;height:82px!important;min-height:82px!important}
+    header:before,header:after{display:none!important}
+    .header-inner{max-width:1320px!important;margin:0 auto!important;display:flex!important;grid-template-columns:none!important;align-items:center!important;justify-content:space-between!important;gap:30px!important;min-height:82px!important;height:82px!important;position:relative!important;z-index:1!important}
+    .brand-copy{padding-left:0!important;text-align:left!important;display:flex!important;align-items:center!important;min-width:250px!important}
+    .brand-copy .eyebrow,.brand-copy p,.header-note{display:none!important}
+    .brand-copy h1{margin:0!important;font-family:Georgia,'Times New Roman',serif!important;font-size:29px!important;line-height:1!important;font-weight:400!important;letter-spacing:-.5px!important;color:#68704f!important;white-space:nowrap!important}
+    .brand-copy h1::first-letter{color:#59613f!important}
+    .brand-photo{display:none!important}
+    .site-nav{display:flex;align-items:center;gap:27px;margin-left:auto}
+    .site-nav a{color:#626957;text-decoration:none;font-size:14px;font-weight:500;white-space:nowrap;transition:.18s}
+    .site-nav a:hover{color:#66704a}
+    .site-nav .nav-active{color:#66704a;font-weight:600}
+    .nav-icons{display:flex;align-items:center;gap:9px;margin-left:5px}
+    .nav-icon{width:44px;height:44px;border:1px solid #dfe2d4;border-radius:50%;display:flex;align-items:center;justify-content:center;background:#fff;color:#626957;cursor:pointer;transition:.18s;position:relative}
+    .nav-icon:hover{border-color:#b9c1a5;color:#66704a;background:#fafbf7;transform:translateY(-1px)}
+    .nav-icon svg{width:19px;height:19px;stroke:currentColor;fill:none;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+    .cart-count{position:absolute;right:-2px;top:-4px;min-width:18px;height:18px;padding:0 4px;border-radius:99px;background:#c5b58a;color:#fff;font-size:10px;font-weight:700;display:flex;align-items:center;justify-content:center}
+    @media(max-width:850px){header{padding:0 16px!important}.header-inner{gap:12px!important}.brand-copy{min-width:0!important}.brand-copy h1{font-size:23px!important}.site-nav{gap:14px}.site-nav a:nth-child(n+3){display:none}.nav-icon{width:40px;height:40px}}
+    @media(max-width:560px){header{height:72px!important;min-height:72px!important}.header-inner{height:72px!important;min-height:72px!important}.brand-copy h1{font-size:20px!important}.site-nav{gap:7px}.site-nav a{display:none!important}.nav-icon{width:38px;height:38px}.nav-icons{margin-left:0}}
+
+    .hero{margin-top:0!important}
+    .hero-box{margin-top:20px!important}
     .hero-box,.card,.category-card,.feature,.step,.panel,.model-toolbar,.model-card,.shirt-design-card,.badge-card{border-color:#dfe2d4!important;box-shadow:0 10px 28px rgba(73,82,52,.08)!important}
     .hero-pills .p1,.hero-pills .p2,.hero-pills .p3,.hero-pills .p4{background:#eef1e5!important;color:#596049!important}
     .category-card:before,.category-card.boy:before,.feature.f-pink,.feature.f-blue,.feature.f-yellow,.feature.f-purple{border-top-color:#7b8961!important}
@@ -73,6 +88,21 @@ window.SUPABASE_CONFIG = {
   `;
   document.head.appendChild(style);
 
+  function addWebsiteHeader(){
+    const inner=document.querySelector('.header-inner');
+    if(!inner || inner.dataset.websiteHeader==='1') return;
+    inner.dataset.websiteHeader='1';
+    const brand=inner.querySelector('.brand-copy');
+    if(brand){
+      const title=brand.querySelector('h1');
+      if(title) title.textContent="Alina's Handmade Boutique";
+    }
+    const nav=document.createElement('nav');
+    nav.className='site-nav';
+    nav.innerHTML=`<a class="nav-active" href="#catalogCategories">Acasă</a><a href="#catalogCategories">Catalog</a><a href="#models">Modele</a><a href="#personalizare">Personalizare</a><div class="nav-icons"><button class="nav-icon" aria-label="Caută" type="button"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="6.5"></circle><path d="m16 16 5 5"></path></svg></button><button class="nav-icon" aria-label="Favorite" type="button"><svg viewBox="0 0 24 24"><path d="M20.8 8.8c0 5.4-8.8 10.2-8.8 10.2S3.2 14.2 3.2 8.8A4.6 4.6 0 0 1 12 6.2a4.6 4.6 0 0 1 8.8 2.6Z"></path></svg></button><button class="nav-icon" aria-label="Coș" type="button"><svg viewBox="0 0 24 24"><path d="M4 5h2l1.7 10.2a2 2 0 0 0 2 1.8h7.6a2 2 0 0 0 2-1.7L21 8H7"></path><circle cx="10" cy="20" r="1"></circle><circle cx="18" cy="20" r="1"></circle></svg><span class="cart-count">0</span></button></div>`;
+    inner.appendChild(nav);
+  }
+
   function addCategoryInterface(){
     if(document.getElementById('catalogCategories')) return;
     const hero=document.querySelector('.hero');
@@ -90,10 +120,10 @@ window.SUPABASE_CONFIG = {
     ];
     section.innerHTML=`<div class="catalog-categories-head"><div><div class="catalog-categories-kicker">ALINA'S HANDMADE BOUTIQUE</div><h2>Explorează categoriile</h2><p>Descoperă produsele personalizate și alege categoria care te interesează.</p></div></div><div class="catalog-category-grid">${categories.map(c=>`<article class="catalog-category"><div class="catalog-category-main"><div class="catalog-category-icon">${c.icon}</div><h3>${c.name}</h3></div><div class="catalog-subcats">${c.subs.map(s=>`<span class="catalog-subcat">${s}</span>`).join('')}</div>${c.target?`<a class="catalog-category-action" href="#${c.target}">Vezi produsele →</a>`:`<span class="catalog-category-action">Produse disponibile în catalog →</span>`}</article>`).join('')}</div>`;
     hero.insertAdjacentElement('afterend',section);
-    ['motGrid','shirtsSection','badgeGrid'].forEach(id=>document.getElementById(id)?.classList.add('catalog-anchor'));
+    ['motGrid','shirtsSection','badgeGrid','cake-toppers-section'].forEach(id=>document.getElementById(id)?.classList.add('catalog-anchor'));
   }
 
-  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',addCategoryInterface); else addCategoryInterface();
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',()=>{addWebsiteHeader();addCategoryInterface();}); else {addWebsiteHeader();addCategoryInterface();}
 
   // Load the public Cake Toppers module without exposing admin controls.
   const topperScript=document.createElement('script');
