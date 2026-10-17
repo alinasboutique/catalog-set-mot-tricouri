@@ -6,3 +6,12 @@ window.SUPABASE_CONFIG = {
   url: 'https://zbfqhmiqjcvicqlidswo.supabase.co',
   anonKey: 'sb_publishable_d81c4EtU4mkkqgBnVQi9HQ_nf7M2zFb'
 };
+
+// Hide the internal Photo Manager link from the public/client catalog.
+// The manager itself remains separate; this only removes the admin control
+// from the catalog interface.
+(function(){
+  const style=document.createElement('style');
+  style.textContent='a[href="photo-manager.html"]{display:none!important;}';
+  document.head.appendChild(style);
+})();
