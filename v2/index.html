@@ -2,40 +2,48 @@
 <html lang="ro">
 <head>
 <meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Alina's Handmade Boutique | Catalog</title>
 <style>
-:root{--bg:#fbfaf6;--paper:#fffefb;--olive:#68734d;--ink:#3d4437;--line:#dedfd3}
-*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--ink);font-family:Arial,sans-serif}a{text-decoration:none;color:inherit}
-.site-header{width:100%;background:var(--paper);border-top:1px solid #e9e8df;border-bottom:1px solid #e2e1d8}
-.header-inner{max-width:1280px;min-height:80px;margin:0 auto;padding:0 28px;display:flex;align-items:center;gap:28px}
-.brand{display:block;min-width:520px;color:var(--olive)}
-.brand-name{display:block;font-family:Georgia,'Times New Roman',serif;font-size:30px;line-height:1.05;font-weight:500;letter-spacing:-.4px}
-.brand-description{display:block;margin-top:5px;max-width:620px;font-size:11px;line-height:1.35;color:#7a806c}
-.nav{margin-left:auto;display:flex;align-items:center;gap:25px;white-space:nowrap}.nav a{color:#596247;font-size:13px}.nav a:hover{color:var(--olive)}
-.header-icons{display:flex;align-items:center;gap:9px}.icon-button{width:40px;height:40px;border:1px solid #d9dccd;border-radius:50%;display:grid;place-items:center;background:#fffefb;color:#7b826b;font-size:15px}
-main{min-height:500px}
-@media(max-width:1000px){.brand{min-width:0;flex:1}.nav{gap:16px}.brand-description{max-width:520px}}
-@media(max-width:760px){.header-inner{padding:14px 18px;align-items:flex-start;flex-wrap:wrap}.brand{flex:1 1 100%}.brand-name{font-size:26px}.brand-description{font-size:10px}.nav{margin-left:0;gap:14px;overflow:auto;width:100%;padding-bottom:2px}.header-icons{margin-left:auto}}
+:root{--bg:#faf9f4;--paper:#fff;--olive:#68734d;--ink:#30352b;--muted:#737868;--line:#e1e3d7;--soft:#f0f2e8}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--ink);font-family:Arial,sans-serif}a{text-decoration:none;color:inherit}.wrap{max-width:1320px;margin:auto;padding:0 28px}
+header{background:#faf9f4;border-bottom:1px solid var(--line)}.head{min-height:82px;display:flex;align-items:center;gap:25px}.brand{font:500 28px Georgia,serif;color:var(--olive);line-height:1.05}.brand small{display:block;font:9px Arial,sans-serif;letter-spacing:2px;color:#8b9278;margin-top:5px}.brand .tagline{display:block;font:13px Arial,sans-serif;letter-spacing:0;color:#737868;margin-top:8px;max-width:430px;line-height:1.35}
+.nav{margin-left:auto;display:flex;align-items:center;gap:25px}.nav a{color:#586147;font-size:13px}.round{width:40px;height:40px;border:1px solid #d9dccd;border-radius:50%;display:grid;place-items:center;color:#68734d;background:white;font-size:15px;margin-left:-17px}
+main{padding-bottom:70px}.collections{padding:72px 0 55px}.eyebrow{font-size:11px;letter-spacing:2.5px;text-transform:uppercase;color:#879267;font-weight:bold}.collections h1{font:500 clamp(40px,5vw,60px) Georgia,serif;line-height:1.05;margin:12px 0 14px;color:#343a2d}.collections>p{max-width:760px;color:var(--muted);font-size:16px;line-height:1.7;margin:0 0 32px}
+.category-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:13px}.category{min-height:78px;background:var(--paper);border:1px solid var(--line);border-radius:15px;padding:18px 20px;display:flex;align-items:center;gap:13px;color:#505a40;font-size:14px;font-weight:bold;box-shadow:0 7px 22px #3740270a;transition:.18s}.category:hover{transform:translateY(-2px);box-shadow:0 10px 26px #37402712}.icon{font-size:23px;flex:0 0 auto}.arrow{margin-left:auto;font-size:18px;color:#879267;font-weight:normal}
+@media(max-width:1000px){.category-grid{grid-template-columns:repeat(2,1fr)}.nav{gap:18px}}
+@media(max-width:700px){.wrap{padding:0 18px}.head{min-height:74px}.brand{font-size:23px}.brand .tagline{font-size:11px;max-width:280px}.nav{display:none}.category-grid{grid-template-columns:1fr}.collections{padding-top:48px}}
 </style>
 </head>
 <body>
-<header class="site-header">
-  <div class="header-inner">
-    <a class="brand" href="#top" aria-label="Alina's Handmade Boutique">
-      <span class="brand-name">Alina's Handmade Boutique</span>
-      <span class="brand-description">Produse create cu grijă și personalizate pentru cele mai frumoase momente — de la moț și botez, până la nuntă, aniversări și cadouri speciale.</span>
-    </a>
-    <nav class="nav" aria-label="Navigare principală">
-      <a href="#acasa">Acasă</a><a href="#mot">Seturi Moț</a><a href="#tricouri">Tricouri</a><a href="#catalog">Catalog</a><a href="#contact">Contact</a>
-    </nav>
-    <div class="header-icons" aria-label="Acțiuni">
-      <a class="icon-button" href="#manager" aria-label="Photo Manager">⚙</a>
-      <a class="icon-button" href="#favorite" aria-label="Favorite">♡</a>
-      <a class="icon-button" href="#account" aria-label="Cont">◌</a>
-    </div>
-  </div>
+<header>
+<div class="wrap head">
+<a class="brand" href="#top">Alina's Handmade Boutique
+<small>CREAȚII PERSONALIZATE</small>
+<span class="tagline">Produse create cu grijă și personalizate pentru cele mai frumoase momente — de la moț și botez, până la nuntă, aniversări și cadouri speciale.</span>
+</a>
+<nav class="nav">
+<a href="#top">Acasă</a><a href="#mot">Seturi Moț</a><a href="#tricouri">Tricouri</a><a href="#catalog">Catalog</a><a href="#contact">Contact</a>
+<span class="round">⚙</span><span class="round">♡</span><span class="round">◌</span>
+</nav>
+</div>
 </header>
-<main id="top"></main>
+<main id="top"><div class="wrap">
+<section class="collections" id="catalog">
+<div class="eyebrow">Catalog • Alina's Handmade Boutique</div>
+<h1>Descoperă colecțiile</h1>
+<p>Alege categoria care te interesează și descoperă produsele create și personalizate cu drag pentru momentele tale speciale.</p>
+<div class="category-grid">
+<a class="category" id="mot" href="#mot"><span class="icon">🎀</span><span>Seturi pentru moț</span><span class="arrow">→</span></a>
+<a class="category" id="tricouri" href="#tricouri"><span class="icon">👕</span><span>Tricouri personalizate</span><span class="arrow">→</span></a>
+<a class="category" href="#ecusoane"><span class="icon">🎖️</span><span>Ecusoane personalizate</span><span class="arrow">→</span></a>
+<a class="category" href="#toppers"><span class="icon">🎂</span><span>Cake Toppers</span><span class="arrow">→</span></a>
+<a class="category" href="#nunta"><span class="icon">💍</span><span>Nuntă</span><span class="arrow">→</span></a>
+<a class="category" href="#botez"><span class="icon">🕊️</span><span>Botez</span><span class="arrow">→</span></a>
+<a class="category" href="#cadouri"><span class="icon">🎁</span><span>Cadouri personalizate</span><span class="arrow">→</span></a>
+</div>
+</section>
+</div></main>
+<footer id="contact"></footer>
 </body>
 </html>
