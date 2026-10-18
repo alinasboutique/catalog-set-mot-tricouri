@@ -113,7 +113,7 @@ window.SUPABASE_CONFIG = {
     const categories=[
       {icon:'🎀',name:'Seturi pentru moț',subs:['Seturi pentru fetițe','Seturi pentru băieți'],target:'motGrid'},
       {icon:'👕',name:'Tricouri personalizate',subs:['Tricouri damă','Tricouri bărbați','Tricouri copii','Body-uri','Seturi aniversare Tutu'],target:'shirtsSection'},
-      {icon:'🎖️',name:'Badge-uri',subs:['Badge-uri personalizate'],target:null},
+      {icon:'🎖️',name:'Ecusoane personalizate',subs:['Ecusoane personalizate'],target:null},
       {icon:'🎂',name:'Cake Toppers',subs:['Toppere 3D','Toppere Shaker','Nume + cifră'],target:'cake-toppers-section'},
       {icon:'💍',name:'Nuntă',subs:['Invitații','Plicuri pentru dar','Set gătit mireasă','Set gătit mire','Cutie verighete','Mărturii','Pahare personalizate','Cutii dar'],target:null},
       {icon:'👶',name:'Botez',subs:['Trusou botez','Lumânare botez','Mărturii','Invitații','Plicuri pentru dar','Pahare personalizate','Cutii dar'],target:null}
@@ -130,4 +130,30 @@ window.SUPABASE_CONFIG = {
   topperScript.src='cake-toppers.js';
   topperScript.defer=true;
   document.head.appendChild(topperScript);
+
+  // Keep Cake Toppers in the catalog flow, immediately before reviews.
+  // If the review section is not present yet, keep it immediately before the footer.
+  function keepCakeToppersInPlace(){
+    const section=document.getElementById('cake-toppers-section');
+    if(!section) return;
+    const reviews=document.querySelector('.reviews-section');
+    const footer=document.getElementById('alinaCatalogFooter') || document.querySelector('.alina-catalog-footer');
+    const target=reviews || footer;
+    if(target && target.parentElement){
+      if(section.parentElement !== target.parentElement || section.nextElementSibling !== target){
+        target.parentElement.insertBefore(section,target);
+      }
+    }
+  }
+  window.addEventListener('load',()=>{
+    keepCakeToppersInPlace();
+    let checks=0;
+    const timer=setInterval(()=>{
+      keepCakeToppersInPlace();
+      checks++;
+      if(checks>=30) clearInterval(timer);
+    },250);
+  });
+  const observer=new MutationObserver(()=>keepCakeToppersInPlace());
+  if(document.body) observer.observe(document.body,{childList:true,subtree:true});
 })();
