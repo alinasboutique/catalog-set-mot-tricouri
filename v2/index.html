@@ -1,0 +1,41 @@
+<!doctype html>
+<html lang="ro">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Alina's Handmade Boutique | Catalog</title>
+<style>
+:root{--bg:#fbfaf6;--paper:#fffefb;--olive:#68734d;--ink:#3d4437;--line:#dedfd3}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--bg);color:var(--ink);font-family:Arial,sans-serif}a{text-decoration:none;color:inherit}
+.site-header{width:100%;background:var(--paper);border-top:1px solid #e9e8df;border-bottom:1px solid #e2e1d8}
+.header-inner{max-width:1280px;min-height:80px;margin:0 auto;padding:0 28px;display:flex;align-items:center;gap:28px}
+.brand{display:block;min-width:520px;color:var(--olive)}
+.brand-name{display:block;font-family:Georgia,'Times New Roman',serif;font-size:30px;line-height:1.05;font-weight:500;letter-spacing:-.4px}
+.brand-description{display:block;margin-top:5px;max-width:620px;font-size:11px;line-height:1.35;color:#7a806c}
+.nav{margin-left:auto;display:flex;align-items:center;gap:25px;white-space:nowrap}.nav a{color:#596247;font-size:13px}.nav a:hover{color:var(--olive)}
+.header-icons{display:flex;align-items:center;gap:9px}.icon-button{width:40px;height:40px;border:1px solid #d9dccd;border-radius:50%;display:grid;place-items:center;background:#fffefb;color:#7b826b;font-size:15px}
+main{min-height:500px}
+@media(max-width:1000px){.brand{min-width:0;flex:1}.nav{gap:16px}.brand-description{max-width:520px}}
+@media(max-width:760px){.header-inner{padding:14px 18px;align-items:flex-start;flex-wrap:wrap}.brand{flex:1 1 100%}.brand-name{font-size:26px}.brand-description{font-size:10px}.nav{margin-left:0;gap:14px;overflow:auto;width:100%;padding-bottom:2px}.header-icons{margin-left:auto}}
+</style>
+</head>
+<body>
+<header class="site-header">
+  <div class="header-inner">
+    <a class="brand" href="#top" aria-label="Alina's Handmade Boutique">
+      <span class="brand-name">Alina's Handmade Boutique</span>
+      <span class="brand-description">Produse create cu grijă și personalizate pentru cele mai frumoase momente — de la moț și botez, până la nuntă, aniversări și cadouri speciale.</span>
+    </a>
+    <nav class="nav" aria-label="Navigare principală">
+      <a href="#acasa">Acasă</a><a href="#mot">Seturi Moț</a><a href="#tricouri">Tricouri</a><a href="#catalog">Catalog</a><a href="#contact">Contact</a>
+    </nav>
+    <div class="header-icons" aria-label="Acțiuni">
+      <a class="icon-button" href="#manager" aria-label="Photo Manager">⚙</a>
+      <a class="icon-button" href="#favorite" aria-label="Favorite">♡</a>
+      <a class="icon-button" href="#account" aria-label="Cont">◌</a>
+    </div>
+  </div>
+</header>
+<main id="top"></main>
+</body>
+</html>
