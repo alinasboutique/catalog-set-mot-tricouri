@@ -60,11 +60,67 @@
     document.head.appendChild(style);
   }
 
+  function hideOldOrderHelper() {
+    const hero = document.querySelector('.hero');
+    if (!hero) return;
+    const text = (hero.textContent || '').replace(/\s+/g, ' ').trim();
+    const required = ['Alege cum vrei să comanzi', 'Doar set', 'Set + tricouri', 'Doar tricouri'];
+    if (required.every(part => text.includes(part))) hero.style.display = 'none';
+  }
+
+  function moveTopperBeforeReviews(section) {
+    const wrap = document.querySelector('main.wrap');
+    const reviews = document.querySelector('.reviews-section');
+    if (wrap && reviews && section.parentElement === wrap) {
+      wrap.insertBefore(section, reviews);
+    }
+  }
+
+  function addFooter() {
+    if (document.getElementById('alinaCatalogFooter')) return;
+    const reviews = document.querySelector('.reviews-section');
+    if (!reviews) return;
+
+    const footer = document.createElement('footer');
+    footer.id = 'alinaCatalogFooter';
+    footer.className = 'alina-catalog-footer';
+    footer.innerHTML = `
+      <div class="alina-footer-inner">
+        <div class="alina-footer-about">
+          <div class="alina-footer-brand">Alina's Handmade Boutique</div>
+          <p>Produse handmade și personalizate, create cu grijă pentru momentele tale speciale. Fiecare produs este realizat cu atenție la detalii și adaptat cu drag pentru tine.</p>
+        </div>
+        <div class="alina-footer-contact">
+          <h3>Contact</h3>
+          <p>📱 <a href="https://wa.me/447742444493" target="_blank" rel="noopener">07742 444493</a></p>
+          <p>✉️ <a href="mailto:alinashandmadeboutique@gmail.com">alinashandmadeboutique@gmail.com</a></p>
+          <p>🇬🇧 Livrare în UK</p>
+        </div>
+        <div class="alina-footer-hours">
+          <h3>Program de lucru</h3>
+          <p><strong>Luni – Vineri:</strong> 09:00 – 17:00</p>
+          <p><strong>Sâmbătă:</strong> 10:00 – 13:00</p>
+          <p><strong>Duminică:</strong> Închis</p>
+        </div>
+      </div>
+      <div class="alina-footer-bottom">© 2026 Alina's Handmade Boutique. Toate drepturile rezervate.<br>Fotografiile, modelele și materialele prezentate în acest catalog sunt proprietatea Alina's Handmade Boutique și nu pot fi reproduse sau utilizate fără acord.</div>
+    `;
+    reviews.insertAdjacentElement('afterend', footer);
+  }
+
   function render() {
     renderWebsiteHeader();
-    if (document.getElementById('cake-toppers-section')) return;
+    hideOldOrderHelper();
+
+    if (document.getElementById('cake-toppers-section')) {
+      const existing = document.getElementById('cake-toppers-section');
+      moveTopperBeforeReviews(existing);
+      addFooter();
+      return;
+    }
 
     const style = document.createElement('style');
+    style.id = 'alinaCakeToppersStyle';
     style.textContent = `
       #cake-toppers-section{margin:42px 0 10px}
       .cake-toppers-head{display:flex;justify-content:space-between;align-items:end;gap:18px;margin-bottom:22px}
@@ -82,8 +138,16 @@
       .cake-personalise input{padding:10px;border:1px solid #cfd5bf;border-radius:10px;background:#fff;margin-bottom:9px}
       .cake-add{background:linear-gradient(135deg,#66704a,#87905f)!important;color:#fff!important;border:0!important;border-radius:12px;padding:11px 12px;font-weight:900;width:100%;cursor:pointer}
       .cake-added{margin-top:9px;padding:9px 10px;border-radius:10px;background:#edf1e4;color:#596342;font-size:12px;font-weight:800;display:none}
-      @media(max-width:900px){.cake-toppers-grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
-      @media(max-width:560px){.cake-toppers-head{display:block}.cake-toppers-grid{grid-template-columns:1fr}.cake-topper-image{height:260px}}
+      .alina-catalog-footer{background:#596342;color:#f7f8f2;padding:46px 24px 24px;margin-top:0;border-top:4px solid #b39a5a}
+      .alina-footer-inner{max-width:1180px;margin:0 auto;display:grid;grid-template-columns:1.5fr 1fr 1fr;gap:38px}
+      .alina-catalog-footer h3{font-family:Georgia,serif;font-size:21px;font-weight:500;margin:0 0 12px;color:#fffdf8}
+      .alina-footer-brand{font-family:Georgia,'Times New Roman',serif;font-size:28px;font-weight:500;color:#fffdf8;margin-bottom:12px}
+      .alina-catalog-footer p{margin:0 0 8px;color:#e4e8d9;line-height:1.6;font-size:14px}
+      .alina-catalog-footer a{color:#fffdf8;text-decoration:none}.alina-catalog-footer a:hover{text-decoration:underline}
+      .alina-footer-bottom{max-width:1180px;margin:32px auto 0;padding-top:18px;border-top:1px solid rgba(255,255,255,.18);text-align:center;color:#d5dac8;font-size:12px;line-height:1.6}
+      @media(max-width:900px){.cake-toppers-grid{grid-template-columns:repeat(2,minmax(0,1fr)}}
+      @media(max-width:800px){.alina-footer-inner{grid-template-columns:1fr 1fr;gap:28px}.alina-footer-about{grid-column:1/-1}}
+      @media(max-width:560px){.cake-toppers-head{display:block}.cake-toppers-grid{grid-template-columns:1fr}.cake-topper-image{height:260px}.alina-catalog-footer{padding:38px 18px 20px}.alina-footer-inner{grid-template-columns:1fr;gap:25px}.alina-footer-about{grid-column:auto}.alina-footer-brand{font-size:24px}}
     `;
     document.head.appendChild(style);
 
@@ -140,8 +204,22 @@
     const anchor = document.querySelector('.wrap');
     if (anchor) anchor.appendChild(section);
     else document.body.appendChild(section);
+
+    moveTopperBeforeReviews(section);
+    hideOldOrderHelper();
+    addFooter();
   }
 
-  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', render);
-  else render();
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', render);
+  } else {
+    render();
+  }
+
+  window.addEventListener('load', () => {
+    hideOldOrderHelper();
+    const section = document.getElementById('cake-toppers-section');
+    if (section) moveTopperBeforeReviews(section);
+    addFooter();
+  });
 })();
