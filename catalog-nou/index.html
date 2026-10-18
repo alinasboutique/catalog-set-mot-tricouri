@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="ro">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Alina's Handmade Boutique — Catalog</title>
+<style>
+:root{--olive:#657247;--olive2:#7b8758;--cream:#fffdf9;--ink:#30372b;--muted:#74786e;--line:#e4e3d8;--soft:#f4f3e9;--white:#fff}
+*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--cream);color:var(--ink);font-family:Arial,Helvetica,sans-serif}a{text-decoration:none;color:inherit}
+header{border-bottom:1px solid var(--line);background:#fffdfa}.header-inner{max-width:1180px;margin:auto;padding:20px 28px;display:flex;align-items:center;justify-content:space-between;gap:30px}.brand h1{font-family:Georgia,serif;font-size:31px;font-weight:500;margin:0;color:#596542}.brand p{margin:4px 0 0;font-size:11px;letter-spacing:2px;color:#7b806f;text-transform:uppercase}.nav{display:flex;gap:26px;align-items:center;font-size:14px;color:#4d5545}.nav a:hover{color:var(--olive)}
+.container{max-width:1180px;margin:auto;padding:55px 28px 80px}.intro{max-width:800px}.eyebrow{font-size:11px;letter-spacing:3px;text-transform:uppercase;color:var(--olive);font-weight:700}.intro h2{font-family:Georgia,serif;font-size:48px;font-weight:400;margin:10px 0 12px;line-height:1.05}.intro>p{font-size:17px;line-height:1.65;color:var(--muted);margin:0}
+.collections{margin-top:48px}.collections h3,.products-section h3{font-family:Georgia,serif;font-size:32px;font-weight:400;margin:0 0 20px}.collection-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:15px}.collection{background:#fff;border:1px solid var(--line);border-radius:16px;padding:22px;min-height:105px;display:flex;align-items:center;justify-content:space-between;gap:15px;cursor:pointer;transition:.2s}.collection:hover{transform:translateY(-2px);box-shadow:0 10px 25px #5d684515;border-color:#cdd0bc}.collection strong{font-size:16px}.arrow{font-size:20px;color:var(--olive)}
+#mot{margin-top:70px}.gender-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:28px}.gender{background:#fff;border:1px solid var(--line);border-radius:22px;padding:20px;box-shadow:0 8px 25px #5d684510}.gender h4{font-family:Georgia,serif;font-size:27px;font-weight:400;margin:0 0 7px}.gender>p{color:var(--muted);margin:0 0 20px;line-height:1.5}.models{display:grid;grid-template-columns:repeat(2,1fr);gap:14px}.model{border:1px solid var(--line);border-radius:16px;padding:10px;background:#fff}.model-photo{height:190px;border-radius:11px;background:var(--soft);display:flex;align-items:center;justify-content:center;color:#999;font-size:13px;text-align:center;overflow:hidden}.model-photo img{width:100%;height:100%;object-fit:cover}.model h5{font-family:Georgia,serif;font-size:19px;font-weight:400;margin:12px 4px 5px}.model .desc{font-size:13px;color:var(--muted);line-height:1.4;margin:0 4px 12px}.price-options{display:grid;grid-template-columns:1fr 1fr;gap:8px}.price-btn{border:1px solid #d9dccd;background:#f5f5ed;border-radius:10px;padding:11px 7px;text-align:center;font-weight:700;font-size:12px;cursor:pointer}.price-btn:hover,.price-btn.active{background:var(--olive);color:#fff;border-color:var(--olive)}.personalize{margin-top:12px;padding:13px;border-radius:13px;background:#f8f8f2;border:1px solid var(--line)}.personalize label{display:block;font-size:12px;font-weight:700;margin:0 0 5px}.personalize input,.personalize textarea{width:100%;border:1px solid #dcded2;border-radius:9px;padding:9px;font:inherit;font-size:13px;background:#fff;margin-bottom:9px}.personalize textarea{resize:vertical;min-height:65px}.photo-note{font-size:11px!important;color:var(--muted)!important;line-height:1.4;margin:3px 0 0!important}.photo-btn{display:block;width:100%;border:1px dashed #aeb59a;background:#fff;border-radius:9px;padding:9px;cursor:pointer;font-weight:700;color:var(--olive);font-size:12px}
+.placeholder{padding:35px;border:1px dashed #cfd2c2;border-radius:18px;background:#fafaf5;color:var(--muted);text-align:center}.other-section{margin-top:70px}.other-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:15px}.other{background:#fff;border:1px solid var(--line);border-radius:16px;padding:24px;min-height:110px}.other h4{font-family:Georgia,serif;font-size:21px;font-weight:400;margin:0 0 8px}.other p{margin:0;color:var(--muted);font-size:13px;line-height:1.5}
+footer{border-top:1px solid var(--line);background:#f5f4eb;padding:30px 28px;color:#73776b}.footer-inner{max-width:1180px;margin:auto;display:flex;justify-content:space-between;gap:30px;font-size:13px}
+@media(max-width:800px){.header-inner{padding:18px}.nav{display:none}.container{padding:35px 18px}.intro h2{font-size:38px}.collection-grid,.gender-grid,.other-grid{grid-template-columns:1fr}.models{grid-template-columns:1fr}.footer-inner{flex-direction:column}.price-options{grid-template-columns:1fr 1fr}}
+</style>
+</head>
+<body>
+<header>
+<div class="header-inner">
+<div class="brand"><h1>Alina's Handmade Boutique</h1><p>CREAȚII PERSONALIZATE</p></div>
+<nav class="nav"><a href="#acasa">Acasă</a><a href="#mot">Seturi Moț</a><a href="#tricouri">Tricouri</a><a href="#catalog">Catalog</a><a href="#contact">Contact</a></nav>
+</div>
+</header>
+<main class="container" id="acasa">
+<section class="intro"><div class="eyebrow">CATALOG • ALINA'S HANDMADE BOUTIQUE</div><h2>Descoperă colecțiile</h2><p>Produse create cu grijă și personalizate pentru cele mai frumoase momente — de la moț și botez, până la nuntă, aniversări și cadouri speciale.</p></section>
+<section class="collections" id="catalog"><h3>Descoperă colecțiile</h3><div class="collection-grid">
+<a class="collection" href="#mot"><strong>Seturi pentru moț</strong><span class="arrow">→</span></a>
+<a class="collection" href="#tricouri"><strong>Tricouri personalizate</strong><span class="arrow">→</span></a>
+<a class="collection" href="#ecusoane"><strong>Ecusoane personalizate</strong><span class="arrow">→</span></a>
+<a class="collection" href="#toppers"><strong>Cake Toppers</strong><span class="arrow">→</span></a>
+<a class="collection" href="#nunta"><strong>Nuntă</strong><span class="arrow">→</span></a>
+<a class="collection" href="#botez"><strong>Botez</strong><span class="arrow">→</span></a>
+<a class="collection" href="#cadouri"><strong>Cadouri personalizate</strong><span class="arrow">→</span></a>
+</div></section>
+<section id="mot" class="products-section"><h3>Seturi pentru moț</h3><p style="color:var(--muted);margin-top:-10px;margin-bottom:24px">Alege varianta potrivită, apoi modelul și opțiunile de personalizare.</p>
+<div class="gender-grid">
+<article class="gender"><h4>Seturi moț fetiță</h4><p>Modele delicate și personalizate pentru micuța sărbătorită.</p><div class="models">
+<div class="model"><div class="model-photo">Fotografia modelului va fi adăugată aici</div><h5>Model fetiță 1</h5><p class="desc">Personalizare cu nume, dată și mesaj opțional.</p><div class="price-options"><button class="price-btn">Tavă dreptunghiulară £70</button><button class="price-btn">Tavă rotundă £80</button></div><div class="personalize"><label>Nume</label><input placeholder="Numele copilului"><label>Data</label><input placeholder="Data evenimentului"><label>Mesaj tăviță (opțional)</label><textarea placeholder="Scrie aici mesajul dorit..."></textarea><button class="photo-btn">+ Adaugă fotografie copil</button><p class="photo-note">Fotografia copilului va fi trimisă ulterior de client prin WhatsApp.</p></div></div>
+<div class="model"><div class="model-photo">Fotografia modelului va fi adăugată aici</div><h5>Model fetiță 2</h5><p class="desc">Personalizare cu nume, dată și mesaj opțional.</p><div class="price-options"><button class="price-btn">Tavă dreptunghiulară £70</button><button class="price-btn">Tavă rotundă £80</button></div><div class="personalize"><label>Nume</label><input placeholder="Numele copilului"><label>Data</label><input placeholder="Data evenimentului"><label>Mesaj tăviță (opțional)</label><textarea placeholder="Scrie aici mesajul dorit..."></textarea><button class="photo-btn">+ Adaugă fotografie copil</button><p class="photo-note">Fotografia copilului va fi trimisă ulterior de client prin WhatsApp.</p></div></div>
+</div></article>
+<article class="gender"><h4>Seturi moț băiat</h4><p>Modele create special pentru micul sărbătorit.</p><div class="models">
+<div class="model"><div class="model-photo">Fotografia modelului va fi adăugată aici</div><h5>Model băiat 1</h5><p class="desc">Personalizare cu nume, dată și mesaj opțional.</p><div class="price-options"><button class="price-btn">Tavă dreptunghiulară £70</button><button class="price-btn">Tavă rotundă £80</button></div><div class="personalize"><label>Nume</label><input placeholder="Numele copilului"><label>Data</label><input placeholder="Data evenimentului"><label>Mesaj tăviță (opțional)</label><textarea placeholder="Scrie aici mesajul dorit..."></textarea><button class="photo-btn">+ Adaugă fotografie copil</button><p class="photo-note">Fotografia copilului va fi trimisă ulterior de client prin WhatsApp.</p></div></div>
+<div class="model"><div class="model-photo">Fotografia modelului va fi adăugată aici</div><h5>Model băiat 2</h5><p class="desc">Personalizare cu nume, dată și mesaj opțional.</p><div class="price-options"><button class="price-btn">Tavă dreptunghiulară £70</button><button class="price-btn">Tavă rotundă £80</button></div><div class="personalize"><label>Nume</label><input placeholder="Numele copilului"><label>Data</label><input placeholder="Data evenimentului"><label>Mesaj tăviță (opțional)</label><textarea placeholder="Scrie aici mesajul dorit..."></textarea><button class="photo-btn">+ Adaugă fotografie copil</button><p class="photo-note">Fotografia copilului va fi trimisă ulterior de client prin WhatsApp.</p></div></div>
+</div></article>
+</div></section>
+<section id="tricouri" class="other-section"><h3>Tricouri personalizate</h3><div class="placeholder">Modelele de tricouri vor fi adăugate aici din Photo Manager.</div></section>
+<section id="ecusoane" class="other-section"><h3>Ecusoane personalizate</h3><div class="placeholder">Modelele de ecusoane vor fi adăugate aici din Photo Manager.</div></section>
+<section id="toppers" class="other-section"><h3>Cake Toppers</h3><div class="placeholder">Modelele de cake toppers vor fi adăugate aici din Photo Manager.</div></section>
+<section id="nunta" class="other-section"><h3>Nuntă</h3><div class="placeholder">Produsele pentru nuntă vor fi adăugate aici.</div></section>
+<section id="botez" class="other-section"><h3>Botez</h3><div class="placeholder">Produsele pentru botez vor fi adăugate aici.</div></section>
+<section id="cadouri" class="other-section"><h3>Cadouri personalizate</h3><div class="placeholder">Produsele pentru cadouri vor fi adăugate aici.</div></section>
+</main>
+<footer id="contact"><div class="footer-inner"><div><strong>Alina's Handmade Boutique</strong><br>Produse handmade și creații personalizate.</div><div>Contact<br>alinashandmadeboutique@gmail.com</div></div></footer>
+</body></html>
