@@ -19,30 +19,28 @@ jobs:
         run: |
           python - <<'PY'
           from pathlib import Path
-          import re
 
           p = Path('catalog-final.html')
           s = p.read_text(encoding='utf-8')
 
-          # Keep the existing main catalog design intact. Only make the
-          # targeted structural change: the product galleries belong on the
-          # dedicated moț category page, not on the home/catalog landing page.
+          # Keep the existing landing-page design. Only send the moț
+          # collection to its dedicated page and remove the product blocks
+          # from the landing page itself.
           s = s.replace('<a href="#mot">Seturi Moț</a>', '<a href="catalog-nou-v5.html">Seturi Moț</a>', 1)
           s = s.replace('<a class="category" href="#mot">', '<a class="category" href="catalog-nou-v5.html">', 1)
 
-          # Remove the complete product/subcategory block from the landing
-          # page, starting at the moț subsection and ending at the catalog
-          # section closing tag. This leaves the existing category cards,
-          # reviews and footer untouched.
-          s, removed = re.subn(
-              r'\n<div class="subsection" id="mot">.*?\n</section>',
-              '\n</section>',
-              s,
-              count=1,
-              flags=re.S,
-          )
-          if removed != 1:
-              raise SystemExit('Expected exactly one main-catalog moț subsection block.')
+          start_marker = '<div class="subsection" id="mot">'
+          start = s.find(start_marker)
+          if start == -1:
+              raise SystemExit('Could not find the main-catalog moț subsection.')
+
+          end = s.find('</section>', start)
+          if end == -1:
+              raise SystemExit('Could not find the end of the main catalog section.')
+
+          # Remove only the content inside the catalog section after the
+          # category cards. Reviews and footer remain exactly where they are.
+          s = s[:start] + s[end:]
 
           p.write_text(s, encoding='utf-8')
           PY
