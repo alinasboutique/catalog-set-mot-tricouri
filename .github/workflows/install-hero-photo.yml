@@ -1,0 +1,32 @@
+name: Install hero photo
+on:
+  push:
+    branches: [main]
+permissions:
+  contents: write
+jobs:
+  install:
+    if: github.actor != 'github-actions[bot]'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Install the actual hero photo
+        run: |
+          echo 'PLACEHOLDER' | base64 -d > hero-photo.jpg
+          python - <<'PY2'
+          from pathlib import Path
+          p=Path('index.html')
+          s=p.read_text(encoding='utf-8')
+          old='<img class="hero-photo" src="hero-photo.svg" alt="Set personalizat pentru moț realizat de Alina\'s Handmade Boutique">'
+          new='<img class="hero-photo" src="hero-photo.jpg" alt="Set personalizat pentru moț realizat de Alina\'s Handmade Boutique">'
+          if old not in s:
+              raise SystemExit('Expected hero image tag not found; refusing to change anything else.')
+          p.write_text(s.replace(old,new,1),encoding='utf-8')
+          PY2
+      - name: Commit only hero asset and source
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add hero-photo.jpg index.html
+          git commit -m "Use actual hero photo"
+          git push
