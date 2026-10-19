@@ -13,8 +13,38 @@ const SB='https://zbfqhmiqjcvicqlidswo.supabase.co',KEY='sb_publishable_d81c4EtU
 const esc=s=>String(s??'').replace(/[&<>"']/g,m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#039;'}[m]));
 const norm=s=>String(s??'').toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'');
 async function get(path){const r=await fetch(SB+'/rest/v1/'+path,{headers:HDR});const t=await r.text();if(!r.ok)throw Error(t||('HTTP '+r.status));return t?JSON.parse(t):[]}
-function imageCandidates(v){let s=String(v||'').trim();if(!s)return[];if(/^https?:\/\//i.test(s))return[s];s=s.replace(/^\/+/, '').replace(/^storage\/v1\/object\/public\//,'');s=s.replace(/^catalog\//,'');return[SB+'/storage/v1/object/public/catalog/'+s,SB+'/storage/v1/object/public/mot-models/'+s]}
-function makeImg(v,name){const urls=imageCandidates(v);return '<img src="'+esc(urls[0]||'')+'" data-fallback="'+esc(urls[1]||'')+'" alt="'+esc(name)+'" loading="lazy" onerror="if(this.dataset.fallback&&this.src!==this.dataset.fallback){this.src=this.dataset.fallback}else{this.style.display=\'none\'}">'}
+function imageCandidates(v){
+ let s=String(v||'').trim();
+ if(!s)return[];
+ if(/^https?:\/\//i.test(s)||/^data:/i.test(s))return[s];
+ s=s.replace(/^\/+/, '');
+ const marker='/storage/v1/object/public/';
+ if(s.includes(marker)){
+   const tail=s.split(marker).pop();
+   const slash=tail.indexOf('/');
+   if(slash>=0){
+     const bucket=tail.slice(0,slash),path=tail.slice(slash+1);
+     return [SB+'/storage/v1/object/public/'+bucket+'/'+path,
+       SB+'/storage/v1/object/public/catalog/'+path,
+       SB+'/storage/v1/object/public/mot-models/'+path];
+   }
+ }
+ for(const bucket of ['catalog/','mot-models/']) if(s.startsWith(bucket)) {
+   const path=s.slice(bucket.length);
+   return [SB+'/storage/v1/object/public/'+bucket+path,
+     SB+'/storage/v1/object/public/catalog/'+path,
+     SB+'/storage/v1/object/public/mot-models/'+path];
+ }
+ s=s.replace(/^storage\//,'');
+ return [SB+'/storage/v1/object/public/catalog/'+s,
+         SB+'/storage/v1/object/public/mot-models/'+s];
+}
+function makeImg(v,name){
+ const urls=imageCandidates(v);
+ const src=urls[0]||'';
+ const fallbacks=JSON.stringify(urls.slice(1));
+ return '<img src="'+esc(src)+'" data-fallbacks="'+esc(fallbacks)+'" alt="'+esc(name)+'" loading="lazy" onerror="(function(img){var a=[];try{a=JSON.parse(img.dataset.fallbacks||\'[]\')}catch(e){}var n=Number(img.dataset.fallbackIndex||0);if(n<a.length){img.dataset.fallbackIndex=String(n+1);img.src=a[n]}else{img.style.display=\'none\';img.closest(\'.gallery\')?.classList.add(\'has-broken-images\')}})(this)">';
+}
 function isMot(p){const s=norm([p.category,p.subcategory,p.name,p.description,p.type].filter(Boolean).join(' '));return s.includes('mot')||s.includes('motul')||s.includes('botez')&&s.includes('set')}
 function isGirl(p){const s=norm([p.category,p.subcategory,p.name,p.description,p.gender,p.sex].filter(Boolean).join(' '));return /fetit|fata|girl/.test(s)}
 function isBoy(p){const s=norm([p.category,p.subcategory,p.name,p.description,p.gender,p.sex].filter(Boolean).join(' '));return /baiat|baietel|baieti|boy/.test(s)}
