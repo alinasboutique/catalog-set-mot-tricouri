@@ -19,68 +19,22 @@ jobs:
         run: |
           python - <<'PY'
           from pathlib import Path
-          p = Path('supabase-config.js')
+
+          # The dedicated moț catalog uses mot_models + mot_model_photos.
+          # catalog-final must use the same source, otherwise Supabase rejects
+          # the old catalog_products request before any photos can be rendered.
+          p = Path('catalog-final.html')
           s = p.read_text(encoding='utf-8')
 
-          # Existing moț model photos are stored under the mot-models bucket.
-          # Keep the newer catalog bucket for products created through catalog_products.
-          s = s.replace("photoUrl(p.image_url,'catalog')", "photoUrl(p.image_url,'mot-models')")
+          replacements = {
+              '/catalog_products?select=*&order=display_order.asc,created_at.desc': '/mot_models?select=id,category,name,display_order,is_active,created_at&is_active=eq.true&order=display_order.asc,created_at.asc',
+              '/catalog_product_photos?select=*&order=display_order.asc,created_at.asc': '/mot_model_photos?select=id,model_id,image_url,is_main,display_order&order=display_order.asc',
+              'String(x.product_id)': 'String(x.model_id)',
+              "SB+'/storage/v1/object/public/catalog/'+s": "SB+'/storage/v1/object/public/mot-models/'+s",
+          }
 
-          marker = "/* FINAL_CATALOG_REPAIR_V1 */"
-          if marker not in s:
-              s += r'''
-
-          /* FINAL_CATALOG_REPAIR_V1 */
-          (function(){
-            function moveShirtSizes(){
-              const sizes=document.getElementById('shirt-sizes');
-              const shirts=document.getElementById('managed-shirts');
-              if(!sizes || !shirts) return;
-              const grid=shirts.querySelector('.managed-grid');
-              if(grid){
-                const heading=sizes.querySelector('h2');
-                const sub=sizes.querySelector('.managed-sub');
-                const tables=sizes.querySelector('.managed-grid');
-                if(!shirts.querySelector('.shirt-size-area')){
-                  const area=document.createElement('div');
-                  area.className='shirt-size-area';
-                  area.style.marginTop='28px';
-                  if(heading){
-                    const h=document.createElement('h3');
-                    h.textContent=heading.textContent;
-                    h.style.cssText='font:500 26px Georgia,serif;color:#3f4735;margin:0 0 7px';
-                    area.appendChild(h);
-                  }
-                  if(sub){
-                    const d=document.createElement('p');
-                    d.className='managed-sub';
-                    d.textContent=sub.textContent;
-                    area.appendChild(d);
-                  }
-                  if(tables) area.appendChild(tables);
-                  shirts.appendChild(area);
-                }
-                sizes.remove();
-              }
-            }
-
-            function hideOldStandaloneSections(){
-              document.querySelectorAll('.managed-section').forEach(function(sec){
-                const h=(sec.querySelector('h2')?.textContent||'').trim().toLowerCase();
-                if(h==='tabele cu mărimi' && sec.id!=='shirt-sizes') sec.remove();
-              });
-            }
-
-            function run(){
-              moveShirtSizes();
-              hideOldStandaloneSections();
-            }
-
-            if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',run);
-            else run();
-            new MutationObserver(run).observe(document.body,{childList:true,subtree:true});
-          })();
-          '''
+          for old, new in replacements.items():
+              s = s.replace(old, new)
 
           p.write_text(s, encoding='utf-8')
           PY
@@ -89,7 +43,7 @@ jobs:
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add supabase-config.js
+          git add catalog-final.html
           if git diff --cached --quiet; then exit 0; fi
-          git commit -m "Repair mot images and move shirt size tables"
+          git commit -m "Fix mot models source in final catalog"
           git push
