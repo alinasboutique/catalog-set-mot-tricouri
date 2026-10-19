@@ -1,0 +1,37 @@
+name: Apply brand palette
+on:
+  push:
+    branches: [main]
+permissions:
+  contents: write
+jobs:
+  palette:
+    if: github.event.head_commit.message != 'Apply brand palette'
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Replace green palette with brand palette
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          files = [Path('catalog-final.html'), Path('catalog-nou-v5.html')]
+          replacements = {
+              '#707b4d':'#7d3f4c', '#6f7b4d':'#7d3f4c', '#596442':'#7d3f4c', '#596342':'#7d3f4c',
+              '#7d885a':'#9a5263', '#8a9074':'#8a7773', '#8b927e':'#99908c', '#727667':'#77736f',
+              '#66704a12':'#7d414c12', '#f7f8f2':'#fbf3f0', '#e1e3d6':'#ead8d1', '#cfd5bf':'#e3cfd0',
+              '#f0f0e5':'#f8eee9', '#4d5440':'#7b414c', '#62675a':'#6c5d59', '#e7e9da':'#f4e4df',
+              '#f1f2e8':'#f8eee9', '#d8d8c5':'#e0d4d0', '#fbfaf4':'#fffdf9', '#dedfce':'#ead8d1',
+              '#4f5a3e':'#713b46', '#6d7560':'#77736f'
+          }
+          for p in files:
+              if p.exists():
+                  s = p.read_text(encoding='utf-8')
+                  for a,b in replacements.items(): s = s.replace(a,b)
+                  p.write_text(s, encoding='utf-8')
+          PY
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add catalog-final.html catalog-nou-v5.html
+          git diff --cached --quiet && exit 0
+          git commit -m 'Apply brand palette'
+          git push
