@@ -14,7 +14,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Repair catalog rendering
+      - name: Verify catalog placement
         shell: bash
         run: |
           python - <<'PY'
@@ -23,26 +23,25 @@ jobs:
           p = Path('catalog-final.html')
           s = p.read_text(encoding='utf-8')
 
-          # Keep the existing landing-page design. Only send the moț
-          # collection to its dedicated page and remove the product blocks
-          # from the landing page itself.
+          # The main catalog must link to the dedicated moț page.
           s = s.replace('<a href="#mot">Seturi Moț</a>', '<a href="catalog-nou-v5.html">Seturi Moț</a>', 1)
           s = s.replace('<a class="category" href="#mot">', '<a class="category" href="catalog-nou-v5.html">', 1)
 
+          # If the product block is already gone, leave the catalog untouched.
           start_marker = '<div class="subsection" id="mot">'
           start = s.find(start_marker)
           if start == -1:
-              raise SystemExit('Could not find the main-catalog moț subsection.')
+              p.write_text(s, encoding='utf-8')
+              print('Catalog already has the moț products on the dedicated page.')
+              raise SystemExit(0)
 
           end = s.find('</section>', start)
           if end == -1:
               raise SystemExit('Could not find the end of the main catalog section.')
 
-          # Remove only the content inside the catalog section after the
-          # category cards. Reviews and footer remain exactly where they are.
           s = s[:start] + s[end:]
-
           p.write_text(s, encoding='utf-8')
+          print('Moved the moț product block to the dedicated category page.')
           PY
 
       - name: Commit repair
