@@ -16,13 +16,117 @@ const frame=document.getElementById('catalogFrame');
 function fixCatalog(){
   const doc=frame.contentDocument;
   if(!doc)return;
+
+  /* Hero: only presentation changes. The existing catalog structure stays untouched. */
+  const heroBox=doc.querySelector('.hero-box');
+  const heroCopy=doc.querySelector('.hero-copy');
+  const heroArt=doc.querySelector('.hero-art');
+  const heroTitle=doc.querySelector('.hero h2');
+  const heroText=doc.querySelector('.hero p');
+
+  if(heroBox&&heroCopy){
+    heroBox.classList.add('elegant-hero');
+    heroCopy.classList.add('elegant-hero-copy');
+    if(heroArt) heroArt.style.display='none';
+    if(heroTitle){
+      heroTitle.innerHTML='Detalii mici.<br>Amintiri mari.';
+      heroTitle.classList.add('elegant-hero-title');
+    }
+    if(heroText){
+      heroText.textContent='Produse personalizate create cu drag pentru botez, nuntă, aniversări și toate momentele care merită păstrate.';
+    }
+
+    const style=doc.createElement('style');
+    style.textContent=`
+      .hero{max-width:1260px;margin:auto;padding:0 24px}
+      .hero-box.elegant-hero{
+        min-height:430px;
+        display:block;
+        position:relative;
+        overflow:hidden;
+        border:1px solid #ecd7d0;
+        border-radius:0;
+        background:#fffaf7 url('hero-floral.svg') center/cover no-repeat;
+      }
+      .hero-box.elegant-hero:after{
+        content:'';
+        position:absolute;
+        inset:0;
+        background:linear-gradient(90deg,rgba(255,250,247,.08),rgba(255,250,247,.02) 50%,rgba(255,250,247,.08));
+        pointer-events:none;
+      }
+      .hero-copy.elegant-hero-copy{
+        position:relative;
+        z-index:2;
+        width:min(760px,82%);
+        margin:0 auto;
+        padding:62px 20px 58px;
+        text-align:center;
+      }
+      .elegant-hero-copy .kicker{
+        display:inline-flex;
+        align-items:center;
+        gap:18px;
+        color:#8e4c5b;
+        letter-spacing:3px;
+      }
+      .elegant-hero-copy .kicker:before,.elegant-hero-copy .kicker:after{
+        content:'';
+        width:70px;
+        height:1px;
+        background:#c9a47b;
+        opacity:.7;
+      }
+      .hero h2.elegant-hero-title{
+        font:500 58px/1.04 Georgia,'Times New Roman',serif;
+        font-style:normal;
+        letter-spacing:-.5px;
+        margin:18px 0 20px;
+        color:#7d3f4c;
+        text-shadow:0 1px 0 rgba(255,255,255,.55);
+      }
+      .hero h2.elegant-hero-title em{font-style:normal}
+      .elegant-hero-copy p{
+        max-width:720px;
+        margin:0 auto 28px;
+        color:#665955;
+        font:18px/1.55 Georgia,'Times New Roman',serif;
+      }
+      .elegant-hero-copy .hero-btn{
+        padding:13px 28px;
+        border-radius:28px;
+        background:#7d3f4c;
+        box-shadow:0 9px 22px rgba(125,63,76,.18);
+      }
+      .elegant-hero-copy:after{
+        content:'♡';
+        display:block;
+        margin:22px auto 0;
+        color:#c58a99;
+        font-size:27px;
+        line-height:1;
+      }
+      @media(max-width:600px){
+        .hero{padding:0 12px}
+        .hero-box.elegant-hero{min-height:430px}
+        .hero-copy.elegant-hero-copy{width:88%;padding:52px 10px 45px}
+        .hero h2.elegant-hero-title{font-size:43px}
+        .elegant-hero-copy p{font-size:16px}
+        .elegant-hero-copy .kicker:before,.elegant-hero-copy .kicker:after{width:28px}
+      }
+    `;
+    doc.head.appendChild(style);
+  }
+
+  /* Seturi pentru moț category photo remains exactly where it belongs. */
   const visual=doc.querySelector('.category[href="catalog-nou-v5.html"] .cat-visual');
   if(visual){
     visual.innerHTML='<img class="mot-category-photo" src="hero-photo.jpg" alt="Seturi pentru moț realizate de Alina\'s Handmade Boutique"><div class="cat-arrow">↗</div>';
-    const style=doc.createElement('style');
-    style.textContent='.category[href="catalog-nou-v5.html"] .cat-visual{display:block;background:#f8eee9;}.category[href="catalog-nou-v5.html"] .cat-visual:before,.category[href="catalog-nou-v5.html"] .cat-visual:after{display:none}.category[href="catalog-nou-v5.html"] .mot-category-photo{width:100%;height:100%;display:block;object-fit:cover;object-position:center;border-radius:0}.category[href="catalog-nou-v5.html"] .cat-arrow{z-index:5;}';
-    doc.head.appendChild(style);
+    const photoStyle=doc.createElement('style');
+    photoStyle.textContent='.category[href="catalog-nou-v5.html"] .cat-visual{display:block;background:#f8eee9}.category[href="catalog-nou-v5.html"] .cat-visual:before,.category[href="catalog-nou-v5.html"] .cat-visual:after{display:none}.category[href="catalog-nou-v5.html"] .mot-category-photo{width:100%;height:100%;display:block;object-fit:cover;object-position:center;border-radius:0}.category[href="catalog-nou-v5.html"] .cat-arrow{z-index:5}';
+    doc.head.appendChild(photoStyle);
   }
+
   const resize=()=>{frame.style.height=Math.max(doc.documentElement.scrollHeight,doc.body.scrollHeight)+'px'};
   resize();
   if(window.ResizeObserver){new ResizeObserver(resize).observe(doc.documentElement)}
