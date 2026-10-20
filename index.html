@@ -63,16 +63,12 @@ function applyCatalogDesign(){
       .alina-elegant-copy .kicker{
         display:inline-flex!important;
         align-items:center!important;
-        gap:18px!important;
+        gap:0!important;
         color:#8e4c5b!important;
         letter-spacing:3px!important;
       }
       .alina-elegant-copy .kicker:before,.alina-elegant-copy .kicker:after{
-        content:'';
-        width:70px;
-        height:1px;
-        background:#c9a47b;
-        opacity:.7;
+        display:none!important;
       }
       .hero h2.alina-elegant-title{
         font:500 58px/1.04 Georgia,'Times New Roman',serif!important;
@@ -94,7 +90,6 @@ function applyCatalogDesign(){
         .hero-copy.alina-elegant-copy{width:88%!important;padding:52px 10px 45px!important}
         .hero h2.alina-elegant-title{font-size:43px!important}
         .alina-elegant-copy p{font-size:16px!important}
-        .alina-elegant-copy .kicker:before,.alina-elegant-copy .kicker:after{width:28px}
       }
     `;
     heroTitle.classList.add('alina-elegant-title');
