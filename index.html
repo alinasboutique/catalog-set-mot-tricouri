@@ -3,12 +3,31 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<meta http-equiv="refresh" content="0; url=catalog-final.html">
 <title>Alina's Handmade Boutique | Catalog</title>
-<script>window.location.replace('catalog-final.html');</script>
+<style>
+html,body{margin:0;padding:0;width:100%;background:#fffdf9;overflow-x:hidden}
+#catalogFrame{display:block;width:100%;height:100vh;border:0}
+</style>
 </head>
 <body>
-<p>Se deschide catalogul...</p>
-<p><a href="catalog-final.html">Deschide catalogul</a></p>
+<iframe id="catalogFrame" src="catalog-final.html" title="Alina's Handmade Boutique | Catalog"></iframe>
+<script>
+const frame=document.getElementById('catalogFrame');
+function fixCatalog(){
+  const doc=frame.contentDocument;
+  if(!doc)return;
+  const visual=doc.querySelector('.category[href="catalog-nou-v5.html"] .cat-visual');
+  if(visual){
+    visual.innerHTML='<img class="mot-category-photo" src="hero-photo.jpg" alt="Seturi pentru moț realizate de Alina\'s Handmade Boutique"><div class="cat-arrow">↗</div>';
+    const style=doc.createElement('style');
+    style.textContent='.category[href="catalog-nou-v5.html"] .cat-visual{display:block;background:#f8eee9;}.category[href="catalog-nou-v5.html"] .cat-visual:before,.category[href="catalog-nou-v5.html"] .cat-visual:after{display:none}.category[href="catalog-nou-v5.html"] .mot-category-photo{width:100%;height:100%;display:block;object-fit:cover;object-position:center;border-radius:0}.category[href="catalog-nou-v5.html"] .cat-arrow{z-index:5;}';
+    doc.head.appendChild(style);
+  }
+  const resize=()=>{frame.style.height=Math.max(doc.documentElement.scrollHeight,doc.body.scrollHeight)+'px'};
+  resize();
+  if(window.ResizeObserver){new ResizeObserver(resize).observe(doc.documentElement)}
+}
+frame.addEventListener('load',()=>setTimeout(fixCatalog,50));
+</script>
 </body>
 </html>
