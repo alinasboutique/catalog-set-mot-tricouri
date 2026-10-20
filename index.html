@@ -10,128 +10,117 @@ html,body{margin:0;padding:0;width:100%;background:#fffdf9;overflow-x:hidden}
 </style>
 </head>
 <body>
-<iframe id="catalogFrame" src="catalog-final.html" title="Alina's Handmade Boutique | Catalog"></iframe>
+<iframe id="catalogFrame" src="catalog-final.html?v=20261020" title="Alina's Handmade Boutique | Catalog"></iframe>
 <script>
 const frame=document.getElementById('catalogFrame');
-function fixCatalog(){
+function applyCatalogDesign(){
   const doc=frame.contentDocument;
-  if(!doc)return;
+  if(!doc||!doc.head)return;
 
-  /* Hero: only presentation changes. The existing catalog structure stays untouched. */
   const heroBox=doc.querySelector('.hero-box');
   const heroCopy=doc.querySelector('.hero-copy');
-  const heroArt=doc.querySelector('.hero-art');
   const heroTitle=doc.querySelector('.hero h2');
   const heroText=doc.querySelector('.hero p');
+  const heroArt=doc.querySelector('.hero-art');
 
   if(heroBox&&heroCopy){
-    heroBox.classList.add('elegant-hero');
-    heroCopy.classList.add('elegant-hero-copy');
-    if(heroArt) heroArt.style.display='none';
-    if(heroTitle){
-      heroTitle.innerHTML='Detalii mici.<br>Amintiri mari.';
-      heroTitle.classList.add('elegant-hero-title');
-    }
-    if(heroText){
-      heroText.textContent='Produse personalizate create cu drag pentru botez, nuntă, aniversări și toate momentele care merită păstrate.';
-    }
+    if(heroArt) heroArt.remove();
+    heroTitle.innerHTML='Detalii mici.<br>Amintiri mari.';
+    heroText.textContent='Produse personalizate create cu drag pentru botez, nuntă, aniversări și toate momentele care merită păstrate.';
+    heroBox.classList.add('alina-elegant-hero');
+    heroCopy.classList.add('alina-elegant-copy');
 
-    const style=doc.createElement('style');
+    let style=doc.getElementById('alinaElegantHeroStyle');
+    if(!style){
+      style=doc.createElement('style');
+      style.id='alinaElegantHeroStyle';
+      doc.head.appendChild(style);
+    }
     style.textContent=`
-      .hero{max-width:1260px;margin:auto;padding:0 24px}
-      .hero-box.elegant-hero{
-        min-height:430px;
-        display:block;
-        position:relative;
-        overflow:hidden;
-        border:1px solid #ecd7d0;
-        border-radius:0;
-        background:#fffaf7 url('hero-floral.svg') center/cover no-repeat;
+      .hero-box.alina-elegant-hero{
+        min-height:430px!important;
+        display:block!important;
+        position:relative!important;
+        overflow:hidden!important;
+        background:#fffaf7 url('hero-floral.svg') center/cover no-repeat!important;
+        border:1px solid #ecd7d0!important;
       }
-      .hero-box.elegant-hero:after{
+      .hero-box.alina-elegant-hero:after{
         content:'';
         position:absolute;
         inset:0;
-        background:linear-gradient(90deg,rgba(255,250,247,.08),rgba(255,250,247,.02) 50%,rgba(255,250,247,.08));
+        background:rgba(255,250,247,.10);
         pointer-events:none;
       }
-      .hero-copy.elegant-hero-copy{
-        position:relative;
-        z-index:2;
-        width:min(760px,82%);
-        margin:0 auto;
-        padding:62px 20px 58px;
-        text-align:center;
+      .hero-copy.alina-elegant-copy{
+        position:relative!important;
+        z-index:2!important;
+        width:min(760px,82%)!important;
+        margin:0 auto!important;
+        padding:62px 20px 58px!important;
+        text-align:center!important;
       }
-      .elegant-hero-copy .kicker{
-        display:inline-flex;
-        align-items:center;
-        gap:18px;
-        color:#8e4c5b;
-        letter-spacing:3px;
+      .alina-elegant-copy .kicker{
+        display:inline-flex!important;
+        align-items:center!important;
+        gap:18px!important;
+        color:#8e4c5b!important;
+        letter-spacing:3px!important;
       }
-      .elegant-hero-copy .kicker:before,.elegant-hero-copy .kicker:after{
+      .alina-elegant-copy .kicker:before,.alina-elegant-copy .kicker:after{
         content:'';
         width:70px;
         height:1px;
         background:#c9a47b;
         opacity:.7;
       }
-      .hero h2.elegant-hero-title{
-        font:500 58px/1.04 Georgia,'Times New Roman',serif;
-        font-style:normal;
-        letter-spacing:-.5px;
-        margin:18px 0 20px;
-        color:#7d3f4c;
-        text-shadow:0 1px 0 rgba(255,255,255,.55);
+      .hero h2.alina-elegant-title{
+        font:500 58px/1.04 Georgia,'Times New Roman',serif!important;
+        font-style:normal!important;
+        letter-spacing:-.5px!important;
+        margin:18px 0 20px!important;
+        color:#7d3f4c!important;
       }
-      .hero h2.elegant-hero-title em{font-style:normal}
-      .elegant-hero-copy p{
-        max-width:720px;
-        margin:0 auto 28px;
-        color:#665955;
-        font:18px/1.55 Georgia,'Times New Roman',serif;
+      .alina-elegant-copy p{
+        max-width:720px!important;
+        margin:0 auto 28px!important;
+        color:#665955!important;
+        font:18px/1.55 Georgia,'Times New Roman',serif!important;
       }
-      .elegant-hero-copy .hero-btn{
-        padding:13px 28px;
-        border-radius:28px;
-        background:#7d3f4c;
-        box-shadow:0 9px 22px rgba(125,63,76,.18);
-      }
-      .elegant-hero-copy:after{
-        content:'♡';
-        display:block;
-        margin:22px auto 0;
-        color:#c58a99;
-        font-size:27px;
-        line-height:1;
-      }
+      .alina-elegant-copy .hero-btn{padding:13px 28px!important;border-radius:28px!important}
+      .alina-elegant-copy:after{content:'♡';display:block;margin:22px auto 0;color:#c58a99;font-size:27px;line-height:1}
       @media(max-width:600px){
-        .hero{padding:0 12px}
-        .hero-box.elegant-hero{min-height:430px}
-        .hero-copy.elegant-hero-copy{width:88%;padding:52px 10px 45px}
-        .hero h2.elegant-hero-title{font-size:43px}
-        .elegant-hero-copy p{font-size:16px}
-        .elegant-hero-copy .kicker:before,.elegant-hero-copy .kicker:after{width:28px}
+        .hero-box.alina-elegant-hero{min-height:430px!important}
+        .hero-copy.alina-elegant-copy{width:88%!important;padding:52px 10px 45px!important}
+        .hero h2.alina-elegant-title{font-size:43px!important}
+        .alina-elegant-copy p{font-size:16px!important}
+        .alina-elegant-copy .kicker:before,.alina-elegant-copy .kicker:after{width:28px}
       }
     `;
-    doc.head.appendChild(style);
+    heroTitle.classList.add('alina-elegant-title');
   }
 
-  /* Seturi pentru moț category photo remains exactly where it belongs. */
   const visual=doc.querySelector('.category[href="catalog-nou-v5.html"] .cat-visual');
   if(visual){
-    visual.innerHTML='<img class="mot-category-photo" src="hero-photo.jpg" alt="Seturi pentru moț realizate de Alina\'s Handmade Boutique"><div class="cat-arrow">↗</div>';
-    const photoStyle=doc.createElement('style');
+    if(!visual.querySelector('.mot-category-photo')){
+      visual.innerHTML='<img class="mot-category-photo" src="hero-photo.jpg" alt="Seturi pentru moț realizate de Alina\'s Handmade Boutique"><div class="cat-arrow">↗</div>';
+    }
+    let photoStyle=doc.getElementById('motCategoryPhotoStyle');
+    if(!photoStyle){
+      photoStyle=doc.createElement('style');
+      photoStyle.id='motCategoryPhotoStyle';
+      doc.head.appendChild(photoStyle);
+    }
     photoStyle.textContent='.category[href="catalog-nou-v5.html"] .cat-visual{display:block;background:#f8eee9}.category[href="catalog-nou-v5.html"] .cat-visual:before,.category[href="catalog-nou-v5.html"] .cat-visual:after{display:none}.category[href="catalog-nou-v5.html"] .mot-category-photo{width:100%;height:100%;display:block;object-fit:cover;object-position:center;border-radius:0}.category[href="catalog-nou-v5.html"] .cat-arrow{z-index:5}';
-    doc.head.appendChild(photoStyle);
   }
 
   const resize=()=>{frame.style.height=Math.max(doc.documentElement.scrollHeight,doc.body.scrollHeight)+'px'};
   resize();
-  if(window.ResizeObserver){new ResizeObserver(resize).observe(doc.documentElement)}
+  if(window.ResizeObserver&&!frame._alinaObserver){frame._alinaObserver=new ResizeObserver(resize);frame._alinaObserver.observe(doc.documentElement)}
 }
-frame.addEventListener('load',()=>setTimeout(fixCatalog,50));
+function start(){applyCatalogDesign();setTimeout(applyCatalogDesign,150);setTimeout(applyCatalogDesign,800)}
+frame.addEventListener('load',start);
+if(frame.contentDocument&&frame.contentDocument.readyState==='complete')start();
 </script>
 </body>
 </html>
